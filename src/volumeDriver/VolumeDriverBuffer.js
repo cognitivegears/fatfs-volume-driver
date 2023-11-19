@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const VolumeDriver = require('../volumeDriver');
+const VolumeDriver = require('../VolumeDriver');
 
 class VolumeDriverBuffer extends VolumeDriver {
 	constructor(path, opts = {}) {
@@ -65,6 +65,4 @@ class VolumeDriverBuffer extends VolumeDriver {
 	}
 }
 
-exports.createDriverSync = function (path, opts = {}) {
-	return new VolumeDriverBuffer(path, opts);
-};
+module.exports = VolumeDriverBuffer;

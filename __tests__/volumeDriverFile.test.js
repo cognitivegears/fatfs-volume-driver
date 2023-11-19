@@ -1,5 +1,5 @@
 const fs = require('fs');
-const {createDriverSync} = require('../src/volumeDriver/volumeDriverFile');
+const {createFileDriverSync} = require('../src/index');
 
 describe('createDriverSync', () => {
 	let mockPath;
@@ -41,7 +41,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should open the file with the correct parameters', () => {
-		createDriverSync(mockPath, mockReadOnlyOpts);
+		createFileDriverSync(mockPath, mockReadOnlyOpts);
 
 		expect(mockOpenSync).toHaveBeenCalledWith(mockPath, 'r');
 	});
@@ -49,13 +49,13 @@ describe('createDriverSync', () => {
 	it('should open the file in read-write mode if readOnly option is false', () => {
 		mockReadOnlyOpts.readOnly = false;
 
-		createDriverSync(mockPath, mockReadOnlyOpts);
+		createFileDriverSync(mockPath, mockReadOnlyOpts);
 
 		expect(mockOpenSync).toHaveBeenCalledWith(mockPath, 'r+');
 	});
 
 	it('should return a driver object with correct properties for read only', () => {
-		const driver = createDriverSync(mockPath, mockReadOnlyOpts);
+		const driver = createFileDriverSync(mockPath, mockReadOnlyOpts);
 
 		expect(driver).toEqual(
 			expect.objectContaining({
@@ -69,7 +69,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should return a driver object with correct properties for read write', () => {
-		const driver = createDriverSync(mockPath, mockReadWriteOpts);
+		const driver = createFileDriverSync(mockPath, mockReadWriteOpts);
 
 		expect(driver).toEqual(
 			expect.objectContaining({
@@ -82,7 +82,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should throw an error if the buffer length is unexpected in readSectors', () => {
-		const driver = createDriverSync(mockPath, mockReadOnlyOpts);
+		const driver = createFileDriverSync(mockPath, mockReadOnlyOpts);
 		const buffer = Buffer.alloc(1023);
 
 		expect(() => {
@@ -91,7 +91,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should call fs.read with the correct parameters in readSectors', () => {
-		const driver = createDriverSync(mockPath, mockReadOnlyOpts);
+		const driver = createFileDriverSync(mockPath, mockReadOnlyOpts);
 		const buffer = Buffer.alloc(512);
 		const mockCallback = jest.fn();
 
@@ -108,7 +108,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should call the callback with the correct parameters in readSectors', () => {
-		const driver = createDriverSync(mockPath, mockReadOnlyOpts);
+		const driver = createFileDriverSync(mockPath, mockReadOnlyOpts);
 		const buffer = Buffer.alloc(512);
 		const mockCallback = jest.fn();
 		const mockError = new Error('Read error');
@@ -125,7 +125,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should throw an error if the buffer length is unexpected in writeSectors', () => {
-		const driver = createDriverSync(mockPath, mockReadWriteOpts);
+		const driver = createFileDriverSync(mockPath, mockReadWriteOpts);
 		const buffer = Buffer.alloc(1023);
 
 		expect(() => {
@@ -134,7 +134,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should call fs.write with the correct parameters in writeSectors', () => {
-		const driver = createDriverSync(mockPath, mockReadWriteOpts);
+		const driver = createFileDriverSync(mockPath, mockReadWriteOpts);
 		const buffer = Buffer.alloc(512);
 		const mockCallback = jest.fn();
 
@@ -151,7 +151,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should call the callback with the correct parameters in writeSectors', () => {
-		const driver = createDriverSync(mockPath, mockReadWriteOpts);
+		const driver = createFileDriverSync(mockPath, mockReadWriteOpts);
 		const buffer = Buffer.alloc(512);
 		const mockCallback = jest.fn();
 		const mockError = new Error('Write error');
@@ -168,7 +168,7 @@ describe('createDriverSync', () => {
 
 	it('should set the current partition number in setCurrentPartition', () => {
 		// Test with a valid partition number
-		const driver = createDriverSync(mockPath, mockReadWriteOpts);
+		const driver = createFileDriverSync(mockPath, mockReadWriteOpts);
 		driver.partitionNumber = 0;
 		expect(driver.partitionNumber).toBe(0);
 	});
@@ -177,13 +177,13 @@ describe('createDriverSync', () => {
 		// Test with an invalid file
 		mockExistsSync.mockReturnValueOnce(false);
 		expect(() => {
-			createDriverSync(mockPath, mockReadWriteOpts);
+			createFileDriverSync(mockPath, mockReadWriteOpts);
 		}).toThrow('File does not exist!');
 	});
 
 	it('should be able to use a partitionNumber other than 0 in constructor', () => {
 		// Test with a valid partition number
-		const driver = createDriverSync(mockPath, {readOnly: true, partitionNumber: 1});
+		const driver = createFileDriverSync(mockPath, {readOnly: true, partitionNumber: 1});
 		expect(driver.partitionNumber).toBe(1);
 	});
 
@@ -192,7 +192,7 @@ describe('createDriverSync', () => {
 		const mockfstatSync = jest.spyOn(fs, 'fstatSync');
 		mockfstatSync.mockReturnValue({size: 511});
 		expect(() => {
-			createDriverSync(mockPath, {readOnly: true, partitionNumber: 1});
+			createFileDriverSync(mockPath, {readOnly: true, partitionNumber: 1});
 		}).toThrow('Partition 1 does not exist!');
 	});
 });

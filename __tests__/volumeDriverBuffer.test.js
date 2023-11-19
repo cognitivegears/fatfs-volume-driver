@@ -1,6 +1,6 @@
-const {createDriverSync} = require('../src/volumeDriver/volumeDriverBuffer');
+const {createBufferDriverSync} = require('../src/index');
 
-describe('createDriverSync', () => {
+describe('createBufferDriverSync', () => {
 	let mockPath;
 	let mockReadOnlyOpts;
 	let mockReadWriteOpts;
@@ -17,7 +17,7 @@ describe('createDriverSync', () => {
 		jest.restoreAllMocks();
 	});
 	it('should throw an error if the buffer length is unexpected in readSectors', () => {
-		const driver = createDriverSync(mockPath, {readOnly: true, buffer: mockBuffer});
+		const driver = createBufferDriverSync(mockPath, {readOnly: true, buffer: mockBuffer});
 		const buffer = Buffer.alloc(513);
 
 		expect(() => {
@@ -26,7 +26,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should honor the readOnly flag', () => {
-		const driver = createDriverSync(mockPath, mockReadOnlyOpts);
+		const driver = createBufferDriverSync(mockPath, mockReadOnlyOpts);
 		// Try to do a write and expect it to fail
 		const buffer = Buffer.alloc(512);
 		expect(() => {
@@ -39,7 +39,7 @@ describe('createDriverSync', () => {
 	});
 
 	it('should be able to call writeSectors when not in read-only mode', () => {
-		const driver = createDriverSync(mockPath, mockReadWriteOpts);
+		const driver = createBufferDriverSync(mockPath, mockReadWriteOpts);
 		const buffer = Buffer.alloc(512);
 		// Fill the buffer with a known value
 		buffer.fill(1);
@@ -55,23 +55,23 @@ describe('createDriverSync', () => {
 	});
 
 	it('should throw an error if the buffer is not defined', () => {
-		const mockUndefinedOpts = {buffer: undefined, readOnly: false};
+		const mockUndefinedOpts = {buffer: undefined, readonly: false};
 		expect(() => {
-			createDriverSync(mockPath, mockUndefinedOpts);
+			createBufferDriverSync(mockPath, mockUndefinedOpts);
 		}).toThrow('Buffer does not exist!');
 	});
 
 	it('should throw an error if the buffer is not a Buffer', () => {
 		const mockBufferOpts = {buffer: 'hello', readOnly: false};
 		expect(() => {
-			createDriverSync(mockPath, mockBufferOpts);
+			createBufferDriverSync(mockPath, mockBufferOpts);
 		}).toThrow('buffer option is not a Buffer!');
 	});
 
 	it('should throw an error if the buffer is too small and partition is defined', () => {
 		const mockBufferOpts = {buffer: Buffer.alloc(511), readOnly: false, partitionNumber: 1};
 		expect(() => {
-			createDriverSync(mockPath, mockBufferOpts);
+			createBufferDriverSync(mockPath, mockBufferOpts);
 		}).toThrow('Partition 1 does not exist!');
 	});
 });

@@ -1,4 +1,4 @@
-const VolumeDriver = require('../src/volumeDriver');
+const VolumeDriver = require('../src/VolumeDriver');
 
 describe('createDriverSync', () => {
 	beforeEach(() => {
