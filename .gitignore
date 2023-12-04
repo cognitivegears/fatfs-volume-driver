@@ -39,3 +39,5 @@ pids
 *.seed
 *.pid.lock
 
+# Release file
+fatfs-volume-driver-*.tgz

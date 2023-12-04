@@ -1,6 +1,6 @@
 {
   "name": "fatfs-volume-driver",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Volume driver classes for the fatfs javascript library",
   "main": "src/index.js",
   "scripts": {
