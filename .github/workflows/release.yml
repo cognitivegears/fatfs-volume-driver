@@ -20,12 +20,11 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test
-    - run: npm login
     - run: npm pack
     - run: npm --no-git-tag-version version ${{github.ref_name}}
     - run: npm publish
       env:
-        NODE_AUTH:TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "fatfs-volume-driver-*.tgz"
