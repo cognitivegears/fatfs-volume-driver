@@ -4,6 +4,10 @@
 
 `fatfs-volume-driver` is a Node.js library designed to provide default implementations of a volume driver for the excellent [fatfs](https://github.com/natevw/fatfs) library. A "Volume Driver" API is needed to use that library. While an example is provided, this library contains a more complete example, including a file-based driver as well as one that operates on Node.js [Buffer](https://nodejs.org/api/buffer.html).
 
+## Documentation
+
+Documentation (via jsdoc) can be found at: [Documentation](https://www.retrotechrewind.com/fatfs-volume-driver/)
+
 ## Requirements
 
 * [Node.js](https://nodejs.org) (currently tested with versions 18.x and 20.x).

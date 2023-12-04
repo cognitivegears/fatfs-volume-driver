@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Volume driver classes for the fatfs javascript library",
   "main": "src/index.js",
+  "homepage": "https://github.com/cognitivegears/fatfs-volume-driver#readme",
   "scripts": {
     "test": "jest",
     "prepare": "husky install",
