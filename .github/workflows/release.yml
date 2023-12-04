@@ -20,8 +20,8 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test
-    - run: npm pack
     - run: npm --no-git-tag-version version ${{github.ref_name}}
+    - run: npm pack
     - run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
