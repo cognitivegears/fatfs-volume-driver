@@ -6,7 +6,7 @@
 
 ## Requirements
 
-* [Node.js](https://nodejs.org) (currently tested with versions 16.x and 18.x).
+* [Node.js](https://nodejs.org) (currently tested with versions 18.x and 20.x).
 * [fatfs](https://github.com/natevw/fatfs) - this library provides volume drivers for the fatfs library
 
 ## Installation
