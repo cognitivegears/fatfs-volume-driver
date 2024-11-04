@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("node:fs");
 
 /**
  *
@@ -99,7 +99,7 @@ class VolumeDriver {
 			partitionNumber < 1 ||
 			partitionNumber > this._partitionLBAList.length
 		) {
-			throw new Error("Partition " + partitionNumber + " does not exist!");
+			throw new Error(`Partition ${partitionNumber} does not exist!`);
 		}
 
 		this._partitionNumber = partitionNumber;

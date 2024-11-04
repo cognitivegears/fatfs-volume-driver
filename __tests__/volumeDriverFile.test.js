@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("node:fs");
 const { createFileDriverSync } = require("../src/index");
 
 describe("createDriverSync", () => {

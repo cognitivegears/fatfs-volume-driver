@@ -7,7 +7,7 @@
 	"scripts": {
 		"test": "jest",
 		"prepare": "husky install",
-		"lint": "npx biome --write .",
+		"lint": "npx @biomejs/biome check --write .",
 		"generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json README.md"
 	},
 	"keywords": ["fatfs", "fat16", "fat32"],
@@ -26,7 +26,7 @@
 		"lodash": "^4.17.21"
 	},
 	"lint-staged": {
-		"*.js": ["biome --fix", "git add"]
+		"*.js": ["npx @biomejs/biome check --write .", "git add"]
 	},
 	"engines": {
 		"node": ">=18.12.0"

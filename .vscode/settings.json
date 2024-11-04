@@ -1,14 +1,3 @@
 {
-    "biome.enable": true,
-    "biome.lintTask.enable": true,
-    "biome.lintTask.options": "-c .biomerc.json --ignore-path .biomeignore .",
-    "biome.run": "onType",
-    "biome.format.enable": true,
-    "[javascript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-biome",
-        "editor.codeActionsOnSave": {
-            "source.fixAll.biome": true
-          },
-    }
-
+	"editor.defaultFormatter": "biomejs.biome"
 }

@@ -18,6 +18,7 @@
 				"dbaeumer.vscode-eslint",
 				"Orta.vscode-jest",
 				"github.vscode-github-actions",
+				"biomejs.biome",
 				"firsttris.vscode-jest-runner"
 			]
 		}
