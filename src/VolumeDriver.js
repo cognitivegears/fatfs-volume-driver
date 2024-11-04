@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require("node:fs");
 
 /**
  *
@@ -50,7 +50,7 @@ class VolumeDriver {
 	 */
 	constructor(_path, opts = {}) {
 		if (new.target === VolumeDriver) {
-			throw new TypeError('Cannot construct VolumeDriver instances directly');
+			throw new TypeError("Cannot construct VolumeDriver instances directly");
 		}
 
 		let fileMode = fs.constants.R_OK;
@@ -95,12 +95,16 @@ class VolumeDriver {
 			return;
 		}
 
-		if (partitionNumber < 1 || partitionNumber > this._partitionLBAList.length) {
-			throw new Error('Partition ' + partitionNumber + ' does not exist!');
+		if (
+			partitionNumber < 1 ||
+			partitionNumber > this._partitionLBAList.length
+		) {
+			throw new Error(`Partition ${partitionNumber} does not exist!`);
 		}
 
 		this._partitionNumber = partitionNumber;
-		this._partitionOffsetBytes = this._partitionLBAList[this._partitionNumber - 1] * this.sectorSize;
+		this._partitionOffsetBytes =
+			this._partitionLBAList[this._partitionNumber - 1] * this.sectorSize;
 	}
 
 	/**
@@ -120,7 +124,7 @@ class VolumeDriver {
 	 */
 	checkSectorLength(dest) {
 		if (dest.length % this.sectorSize) {
-			throw Error('Unexpected buffer length!');
+			throw Error("Unexpected buffer length!");
 		}
 	}
 
@@ -133,7 +137,7 @@ class VolumeDriver {
 	 * @return {undefined} This function does not return a value.
 	 */
 	readSectors(_i, _dest, _cb) {
-		throw new Error('Abstract method \'readSectors\' must be implemented');
+		throw new Error("Abstract method 'readSectors' must be implemented");
 	}
 
 	/**
@@ -145,7 +149,7 @@ class VolumeDriver {
 	 * @throws {Error} Cannot write to read-only volume!
 	 */
 	writeSectors(_i, _data, _cb) {
-		throw new Error('Abstract method \'writeSectors\' must be implemented');
+		throw new Error("Abstract method 'writeSectors' must be implemented");
 	}
 
 	/**
@@ -169,7 +173,7 @@ class VolumeDriver {
 	 * @throws {Error} Abstract method 'readPartitions' must be implemented
 	 */
 	readPartitions() {
-		throw new Error('Abstract method \'readPartitions\' must be implemented');
+		throw new Error("Abstract method 'readPartitions' must be implemented");
 	}
 
 	/**
@@ -187,7 +191,7 @@ class VolumeDriver {
 	 * @return {Error} Abstract method 'numSectors' must be implemented
 	 */
 	get numSectors() {
-		throw new Error('Abstract method \'numSectors\' must be implemented');
+		throw new Error("Abstract method 'numSectors' must be implemented");
 	}
 }
 
