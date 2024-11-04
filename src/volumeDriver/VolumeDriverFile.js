@@ -1,6 +1,6 @@
-const fs = require('fs');
-const _ = require('lodash');
-const VolumeDriver = require('../VolumeDriver');
+const fs = require("fs");
+const _ = require("lodash");
+const VolumeDriver = require("../VolumeDriver");
 
 /**
  * File based volume driver.
@@ -34,13 +34,15 @@ class VolumeDriverFile extends VolumeDriver {
 		super(path, opts);
 
 		if (!fs.existsSync(path)) {
-			throw new Error('File does not exist!');
+			throw new Error("File does not exist!");
 		}
 
-		this._fd = fs.openSync(path, opts.readOnly ? 'r' : 'r+');
+		this._fd = fs.openSync(path, opts.readOnly ? "r" : "r+");
 		this._s = fs.fstatSync(this._fd);
 
-		const partitionNumber = _.isNumber(opts.partitionNumber) ? opts.partitionNumber : 0;
+		const partitionNumber = _.isNumber(opts.partitionNumber)
+			? opts.partitionNumber
+			: 0;
 
 		if (partitionNumber !== 0) {
 			this._partitionLBAList = this.readPartitions();
@@ -60,9 +62,16 @@ class VolumeDriverFile extends VolumeDriver {
 	readSectors(i, dest, cb) {
 		this.checkSectorLength(dest);
 
-		fs.read(this._fd, dest, 0, dest.length, this._partitionOffsetBytes + (i * this.sectorSize), (e, n, d) => {
-			cb(e, d);
-		});
+		fs.read(
+			this._fd,
+			dest,
+			0,
+			dest.length,
+			this._partitionOffsetBytes + i * this.sectorSize,
+			(e, n, d) => {
+				cb(e, d);
+			},
+		);
 	}
 
 	/**
@@ -76,16 +85,23 @@ class VolumeDriverFile extends VolumeDriver {
 	writeSectors(i, data, cb) {
 		this.checkSectorLength(data);
 
-		fs.write(this._fd, data, 0, data.length, this._partitionOffsetBytes + (i * this.sectorSize), e => {
-			cb(e);
-		});
+		fs.write(
+			this._fd,
+			data,
+			0,
+			data.length,
+			this._partitionOffsetBytes + i * this.sectorSize,
+			(e) => {
+				cb(e);
+			},
+		);
 	}
 
 	/**
- 	* Reads the partitions from the disk.
- 	*
- 	* @return {Array} An array of parsed partitions.
- 	*/
+	 * Reads the partitions from the disk.
+	 *
+	 * @return {Array} An array of parsed partitions.
+	 */
 	readPartitions() {
 		if (this._s.size < 512) {
 			return [];
@@ -108,4 +124,3 @@ class VolumeDriverFile extends VolumeDriver {
 }
 
 module.exports = VolumeDriverFile;
-

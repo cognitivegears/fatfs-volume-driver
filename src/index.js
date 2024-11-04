@@ -1,5 +1,5 @@
-const VolumeDriverBuffer = require('./volumeDriver/VolumeDriverBuffer');
-const VolumeDriverFile = require('./volumeDriver/VolumeDriverFile');
+const VolumeDriverBuffer = require("./volumeDriver/VolumeDriverBuffer");
+const VolumeDriverFile = require("./volumeDriver/VolumeDriverFile");
 
 /**
  * Creates a buffer driver synchronously.
@@ -8,9 +8,8 @@ const VolumeDriverFile = require('./volumeDriver/VolumeDriverFile');
  * @param {object} opts - Options for the buffer driver. Must include the buffer option.
  * @return {VolumeDriverBuffer} A new instance of the VolumeDriverBuffer.
  */
-exports.createBufferDriverSync = function (path, opts = {}) {
-	return new VolumeDriverBuffer(path, opts);
-};
+exports.createBufferDriverSync = (path, opts = {}) =>
+	new VolumeDriverBuffer(path, opts);
 
 /**
  * Creates a file driver synchronously.
@@ -19,6 +18,5 @@ exports.createBufferDriverSync = function (path, opts = {}) {
  * @param {Object} opts - Optional arguments.
  * @return {VolumeDriverFile} - The created VolumeDriverFile instance.
  */
-exports.createFileDriverSync = function (path, opts = {}) {
-	return new VolumeDriverFile(path, opts);
-};
+exports.createFileDriverSync = (path, opts = {}) =>
+	new VolumeDriverFile(path, opts);

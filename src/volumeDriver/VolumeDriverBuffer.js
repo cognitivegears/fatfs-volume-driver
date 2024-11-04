@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const VolumeDriver = require('../VolumeDriver');
+const _ = require("lodash");
+const VolumeDriver = require("../VolumeDriver");
 
 /**
  * @class
@@ -40,17 +40,19 @@ class VolumeDriverBuffer extends VolumeDriver {
 		super(path, opts);
 
 		if (opts.buffer === undefined) {
-			throw new Error('Buffer does not exist!');
+			throw new Error("Buffer does not exist!");
 		}
 
 		// Make sure opts.buffer is a Buffer
 		if (!Buffer.isBuffer(opts.buffer)) {
-			throw new Error('buffer option is not a Buffer!');
+			throw new Error("buffer option is not a Buffer!");
 		}
 
 		this._buffer = opts.buffer;
 
-		const partitionNumber = _.isNumber(opts.partitionNumber) ? opts.partitionNumber : 0;
+		const partitionNumber = _.isNumber(opts.partitionNumber)
+			? opts.partitionNumber
+			: 0;
 
 		if (partitionNumber !== 0) {
 			this._partitionLBAList = this.readPartitions();
@@ -70,7 +72,10 @@ class VolumeDriverBuffer extends VolumeDriver {
 	readSectors(i, dest, cb) {
 		this.checkSectorLength(dest);
 
-		const data = this._buffer.slice(this._partitionOffsetBytes + (i * this.sectorSize), this._partitionOffsetBytes + ((i + 1) * this.sectorSize));
+		const data = this._buffer.slice(
+			this._partitionOffsetBytes + i * this.sectorSize,
+			this._partitionOffsetBytes + (i + 1) * this.sectorSize,
+		);
 		dest.set(data);
 		cb(null, data);
 	}
@@ -85,13 +90,18 @@ class VolumeDriverBuffer extends VolumeDriver {
 	 */
 	writeSectors(i, data, cb) {
 		if (this.readOnly) {
-			throw new Error('Cannot write to read-only volume!');
+			throw new Error("Cannot write to read-only volume!");
 		}
 
 		this.checkSectorLength(data);
 
 		// Copy the data Buffer into the correct location in the buffer
-		data.copy(this._buffer, this._partitionOffsetBytes + (i * this.sectorSize), 0, data.length);
+		data.copy(
+			this._buffer,
+			this._partitionOffsetBytes + i * this.sectorSize,
+			0,
+			data.length,
+		);
 		cb(null);
 	}
 
