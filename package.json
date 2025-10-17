@@ -10,7 +10,11 @@
 		"lint": "npx @biomejs/biome check --write .",
 		"generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json README.md"
 	},
-	"keywords": ["fatfs", "fat16", "fat32"],
+	"keywords": [
+		"fatfs",
+		"fat16",
+		"fat32"
+	],
 	"author": "Nathan Byrd",
 	"license": "BSD-2-Clause",
 	"devDependencies": {
@@ -26,7 +30,10 @@
 		"lodash": "^4.17.21"
 	},
 	"lint-staged": {
-		"*.js": ["npx @biomejs/biome check --write .", "git add"]
+		"*.js": [
+			"npx @biomejs/biome check --write .",
+			"git add"
+		]
 	},
 	"engines": {
 		"node": ">=18.12.0"
