@@ -11,7 +11,8 @@
 			"**",
 			"!**/node_modules",
 			"!**/package-lock.json",
-			"!**/yarn.lock"
+			"!**/yarn.lock",
+			"!**/coverage"
 		]
 	},
 	"assist": { "actions": { "source": { "organizeImports": "on" } } }
